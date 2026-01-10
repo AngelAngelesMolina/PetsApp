@@ -60,6 +60,8 @@ dependencies {
     //NAVIGATION COMPONENTS
     implementation(libs.androidx.navigation3.runtime)
     implementation(libs.androidx.navigation3.ui)
+    //Viewmodel
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
 
 
 }

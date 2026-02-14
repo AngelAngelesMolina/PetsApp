@@ -52,6 +52,7 @@ fun HomeScreen(
                 .wrapContentHeight()
                 .padding(bottom = 180.dp)
                 .align(Alignment.BottomCenter),
+            enabled = homeVm.homeState.selectedPet.isNotEmpty(),
             onClick = {
                 goToNextScreen(homeVm.homeState.selectedPet)
             },

@@ -59,11 +59,15 @@ fun CardLayout(homeVm: HomeViewModel) {
 
         ) {
             AnimalCard(
-                drawableResource = R.drawable.dog, animalSelected = {
+                drawableResource = R.drawable.dog,
+                selected = homeVm.homeState.selectedPet == "Dog",
+                animalSelected = {
                 homeVm.updateSelectedPet(it)
                 }
             )
-            AnimalCard(drawableResource = R.drawable.cat, animalSelected = {
+            AnimalCard(drawableResource = R.drawable.cat,
+                selected = homeVm.homeState.selectedPet == "Cat",
+                animalSelected = {
                 homeVm.updateSelectedPet(it)
             })
         }

@@ -3,6 +3,11 @@ package com.jaamcoding.petsapp.ui.screens.home
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -10,6 +15,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.jaamcoding.petsapp.ui.components.CardLayout
 import com.jaamcoding.petsapp.ui.theme.PetsAppTheme
@@ -27,7 +33,10 @@ val tornasolBrush = Brush.linearGradient(
 )
 
 @Composable
-fun HomeScreen(homeVm: HomeViewModel = viewModel()) {
+fun HomeScreen(
+    homeVm: HomeViewModel = viewModel(),
+    goToNextScreen: (selectedPet: String) -> Unit = {}
+) {
     Box(
         modifier =
             Modifier
@@ -39,8 +48,25 @@ fun HomeScreen(homeVm: HomeViewModel = viewModel()) {
                 .background(tornasolBrush),
         contentAlignment = Alignment.Center
     ) {
-        CardLayout()
+        CardLayout(homeVm)
+        Button(
+            modifier = Modifier
+                .width(200.dp)
+                .wrapContentHeight()
+                .padding(bottom = 180.dp)
+                .align(Alignment.BottomCenter),
+            onClick = {
+            goToNextScreen(homeVm.homeState.selectedPet)
+            },
+            content = {
+                Text(
+                    text = "Proceed",
+                    modifier = Modifier.padding(8.dp),
+                    color = Color.White
+                )
 
+            }
+        )
     }
 
 }

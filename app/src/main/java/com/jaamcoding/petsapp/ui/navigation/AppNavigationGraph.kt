@@ -3,13 +3,12 @@ package com.jaamcoding.petsapp.ui.navigation
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
-import androidx.compose.animation.with
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
-import com.jaamcoding.petsapp.ui.screens.DetailsScreen
-import com.jaamcoding.petsapp.ui.screens.HomeScreen
+import com.jaamcoding.petsapp.ui.screens.details.DetailsScreen
+import com.jaamcoding.petsapp.ui.screens.home.HomeScreen
 
 
 data object Home
@@ -27,7 +26,9 @@ fun AppNavigationGraph() {
         entryProvider = entryProvider {
 
             entry<Home> {
-                HomeScreen()
+                HomeScreen(goToNextScreen = {
+                    backstackValue.add(Details)
+                })
             }
             entry<Details> {
                 DetailsScreen()

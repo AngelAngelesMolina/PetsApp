@@ -2,6 +2,7 @@ package com.jaamcoding.petsapp.ui.screens.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -25,8 +26,6 @@ val tornasolBrush = Brush.linearGradient(
         Color(0xFF00F5FF), // cyan
         Color(0xFFB388FF), // violeta
         Color(0xFFFF80AB), // rosa
-//        Color(0xFF69F0AE), // verde menta
-//        Color(0xFFFFF59D)  // amarillo suave
     ),
     start = Offset(0f, 0f),
     end = Offset(1200f, 1200f)
@@ -34,6 +33,7 @@ val tornasolBrush = Brush.linearGradient(
 
 @Composable
 fun HomeScreen(
+    paddingValues: PaddingValues = PaddingValues(),
     homeVm: HomeViewModel = viewModel(),
     goToNextScreen: (selectedPet: String) -> Unit = {}
 ) {
@@ -41,10 +41,7 @@ fun HomeScreen(
         modifier =
             Modifier
                 .fillMaxSize()
-//                .paint(
-//                    painterResource(R.drawable.ic_launcher_background),
-//                    contentScale = ContentScale.Crop
-//                )
+                .padding(paddingValues)
                 .background(tornasolBrush),
         contentAlignment = Alignment.Center
     ) {
@@ -56,7 +53,7 @@ fun HomeScreen(
                 .padding(bottom = 180.dp)
                 .align(Alignment.BottomCenter),
             onClick = {
-            goToNextScreen(homeVm.homeState.selectedPet)
+                goToNextScreen(homeVm.homeState.selectedPet)
             },
             content = {
                 Text(

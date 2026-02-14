@@ -4,6 +4,7 @@ import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
@@ -12,12 +13,15 @@ import com.jaamcoding.petsapp.ui.screens.home.HomeScreen
 
 
 data object Home
-data object Details
+data class Details(
+    val selectedPet: String = ""
+)
 
 @Composable
 fun AppNavigationGraph() {
 
-    val backstackValue = remember { mutableListOf<Any>(Home) }
+    val backstackValue = remember { mutableStateListOf<Any>(Home) }
+
     NavDisplay(
         backStack = backstackValue,
         onBack = {
@@ -26,25 +30,26 @@ fun AppNavigationGraph() {
         entryProvider = entryProvider {
 
             entry<Home> {
-                HomeScreen(goToNextScreen = {
-                    backstackValue.add(Details)
-                })
+                HomeScreen(
+                    goToNextScreen = { selectedPet ->
+                        backstackValue.add(Details(selectedPet))
+                    }
+                )
             }
-            entry<Details> {
-                DetailsScreen()
+
+            entry<Details> { key ->
+                DetailsScreen(key.selectedPet)
             }
 
         },
         transitionSpec = {
-            slideInHorizontally(initialOffsetX = { it }) togetherWith slideOutHorizontally(
-                targetOffsetX = { -it })
+            slideInHorizontally(initialOffsetX = { it }) togetherWith
+                    slideOutHorizontally(targetOffsetX = { -it })
         },
         popTransitionSpec = {
-            slideInHorizontally(initialOffsetX = { -it }) togetherWith slideOutHorizontally(
-                targetOffsetX = { it })
+            slideInHorizontally(initialOffsetX = { -it }) togetherWith
+                    slideOutHorizontally(targetOffsetX = { it })
         }
-
     )
-
 
 }
